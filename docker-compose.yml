@@ -1,0 +1,11 @@
+services:
+  nginx:
+
+  nginx_proxy:
+    env_file:
+      - ./env/nginx_proxy.env
+
+  app:
+    # The app service definition
+  api:
+
