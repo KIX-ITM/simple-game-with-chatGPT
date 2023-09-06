@@ -7,10 +7,10 @@ ENV TZ="Asia/Tokyo" \
     LANGUAGE="ja_JP:ja" \
     LC_ALL="C.UTF-8"
 
-WORKDIR /home/simple-game-api/app
+WORKDIR /home/app
 
-COPY ./simplegame_api /home/simple-game-api/app
+COPY ./ /home/app
 
-RUN pip install --no-cache-dir --upgrade -r requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /home/app/requirements.txt
 
-CMD ["uvicorn", "main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "fastapi.app:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]
