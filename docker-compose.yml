@@ -15,8 +15,8 @@ networks:
       config:
         - subnet: 172.17.0.0/24
 
-  volumes:
-    html:
+volumes:
+  html:
 
 services:
   nginx:
