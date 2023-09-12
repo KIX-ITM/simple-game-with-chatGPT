@@ -47,7 +47,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    volimes:
+    volumes:
       # HTTPS用の証明書とキーをホストOSからゲストOSに連結する
       - /etc/letsencrypt:/etc/letsencrypt
       - html:/usr/share/nginx/html

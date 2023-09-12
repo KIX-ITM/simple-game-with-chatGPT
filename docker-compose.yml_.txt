@@ -44,7 +44,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    volimes:
+    volumes:
       # 2つの共有Dockerボリュームが必要。1つは検証チャレンジ用、もう1つは実際の証明書用。
       - /etc/letsencrypt:/etc/letsencrypt
       - html:/usr/share/nginx/html
