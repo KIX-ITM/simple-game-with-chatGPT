@@ -17,6 +17,7 @@ networks:
 
 volumes:
   html:
+    external: true
 
 services:
   nginx:
