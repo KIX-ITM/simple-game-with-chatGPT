@@ -70,9 +70,9 @@ services:
       context: ./api
       dockerfile: Dockerfile
     networks:
-      - app_net
-      # app_net:
-      #   ipv4_address: 172.18.0.1
+      # - app_net
+      app_net:
+        ipv4_address: 172.18.0.1
 
   certbot:
     image: certbot/certbot:v1.7.0
