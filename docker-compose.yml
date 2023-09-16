@@ -1,5 +1,3 @@
-# 証明書作成時のみ使用するyml
-
 version: "3.8"
 networks:
   nginx_net:
@@ -17,7 +15,7 @@ networks:
 
 volumes:
   html:
-    external: true
+  socket:
 
 services:
   nginx:
@@ -33,6 +31,7 @@ services:
       # - "50001:80"
     volumes:
       - ./html:/usr/share/nginx/html
+      - socket:/tmp
 
   nginx_proxy:
     build:
@@ -48,13 +47,36 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      # HTTPS用の証明書とキーをホストOSからゲストOSに連結する
+      # 2つの共有Dockerボリュームが必要。1つは検証チャレンジ用、もう1つは実際の証明書用。
       - /etc/letsencrypt:/etc/letsencrypt
       - html:/usr/share/nginx/html
+    # 20日おきにnginxを再読み込みする
+    command: "/bin/sh -c 'while :; do sleep 20d & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     restart: always
+
+  app:
+    container_name: app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    networks:
+      - app_net
+    volumes:
+      - socket:/tmp
+
+  api:
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    networks:
+      - app_net
+      # app_net:
+      #   ipv4_address: 172.18.0.1
 
   certbot:
     image: certbot/certbot:v1.7.0
+    container_name: certbot
     volumes:
       #取得したssl証明書を配置
       - /etc/letsencrypt:/etc/letsencrypt
@@ -65,5 +87,4 @@ services:
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 10d & wait $${!}; done;'"
     command: ["--version"]
     restart: always
-
 
