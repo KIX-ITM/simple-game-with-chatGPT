@@ -1,3 +1,5 @@
+# 証明書作成時のみ使用するyml
+
 version: "3.8"
 networks:
   nginx_net:
@@ -7,15 +9,15 @@ networks:
       config:
         - subnet: 172.16.0.0/24
   app_net:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.20.0.0/24
+    # driver: bridge
+    # ipam:
+    #   driver: default
+    #   config:
+    #     - subnet: 172.18.0.0/24
 
 volumes:
   html:
-  socket:
+    external: true
 
 services:
   nginx:
@@ -31,7 +33,6 @@ services:
       # - "50001:80"
     volumes:
       - ./html:/usr/share/nginx/html
-      - socket:/tmp
 
   nginx_proxy:
     build:
@@ -47,32 +48,10 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      # 2つの共有Dockerボリュームが必要。1つは検証チャレンジ用、もう1つは実際の証明書用。
+      # HTTPS用の証明書とキーをホストOSからゲストOSに連結する
       - /etc/letsencrypt:/etc/letsencrypt
       - html:/usr/share/nginx/html
-    # 20日おきにnginxを再読み込みする
-    command: "/bin/sh -c 'while :; do sleep 20d & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     restart: always
-
-  app:
-    container_name: app
-    build:
-      context: ./app
-      dockerfile: Dockerfile
-    networks:
-      - app_net
-    volumes:
-      - socket:/tmp
-
-  # api:
-  #   container_name: api
-  #   build:
-  #     context: ./api
-  #     dockerfile: Dockerfile
-  #   networks:
-  #     # - app_net
-  #     app_net:
-  #       ipv4_address: 172.20.0.1
 
   certbot:
     image: certbot/certbot:v1.7.0
@@ -84,7 +63,8 @@ services:
     depends_on:
       - nginx_proxy
     # 10日おきに証明書を更新する(期限切れまで30日以上あれば更新しない)
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 10d & wait $${!}; done;'"
+    # entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 10d & wait $${!}; done;'"
     command: ["--version"]
     restart: always
+
 

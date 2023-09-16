@@ -1,0 +1,46 @@
+# 証明書作成時のみ使用するconf
+
+server {
+    # HTTPの設定
+    listen       80;
+    listen  [::]:80;
+    #メインドメイン
+    server_name  anko1-simple-game.top;
+
+    # certbotのアクセス先設定
+    location ^~ /.well-known {
+        root /usr/share/nginx/html;
+    }
+
+    location / {
+        root /usr/share/nginx/html;
+    }
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}
+
+server {
+    # HTTPの設定
+    listen       80;
+    listen  [::]:80;
+    #サブドメイン
+    server_name  api.anko1-simple-game.top;
+
+    # certbotのアクセス先設定
+    location ^~ /.well-known {
+        root /usr/share/nginx/html;
+    }
+
+    location / {
+        root /usr/share/nginx/html;
+    }
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}
+
