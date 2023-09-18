@@ -13,4 +13,4 @@ COPY ./ /home/app
 
 RUN pip install --no-cache-dir --upgrade -r /home/app/requirements.txt
 
-CMD ["uvicorn", "app.application:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "app.application:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "8000"]
