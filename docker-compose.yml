@@ -64,15 +64,15 @@ services:
     volumes:
       - socket:/tmp
 
-  # api:
-  #   container_name: api
-  #   build:
-  #     context: ./api
-  #     dockerfile: Dockerfile
-  #   networks:
-  #     # - app_net
-  #     app_net:
-  #       ipv4_address: 172.20.0.1
+  api:
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    networks:
+      # - app_net
+      app_net:
+        ipv4_address: 172.20.0.1
 
   certbot:
     image: certbot/certbot:v1.7.0
