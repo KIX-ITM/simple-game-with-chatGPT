@@ -13,4 +13,4 @@ COPY ./ /home/app
 
 RUN pip install --no-cache-dir --upgrade -r /home/app/requirements.txt
 
-CMD ["uvicorn", "fastapi.app:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "app.app:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]
