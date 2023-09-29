@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block body %}
+
+    <section class="main">
+        <div class="container-top">
+            <h1 id="title">共通点に当てはまる言葉</h1>
+            <h1 id="subtitle">を二つ選択してください。</h1>
+        </div>
+        <div class="container-level">
+            <div class="select-level">
+                <input type="radio" id="easy" name="level" value="easy" class="easy">
+                <label for="easy">Easy</label>
+                <input type="radio" id="nomal" name="level" value="nomal" class="nomal" checked>
+                <label for="nomal">Nomal</label>
+                <input type="radio" id="hard" name="level" value="unix" class="hard">
+                <label for="hard">Hard</label>
+            </div>
+        </div>
+        <div class="container-message-box">
+            <div id="message-hint-img"></div>
+            <div class="message-text">
+                <h2 id="message-title">AIが出した共通点：</h2>
+                <h2 id="message">決断力と適応力によって、自然な移動の障害を克服する。</h2>
+            </div>
+        </div>
+        <div class="container-words">
+            <div class="select-word">
+                <input type="checkbox" id="word01" name="word" value="word01" class="words">
+                <label for="word01">滝</label>
+                <input type="checkbox" id="word02" name="word" value="word02" class="words">
+                <label for="word02">サーモン</label>
+                <input type="checkbox" id="word03" name="word" value="word03" class="words">
+                <label for="word03">自動車</label>
+            </div>
+            <div class="buttons">
+                <div class="hint-and-reload">
+                    <div id="hint"></div>
+                    <div id="reload"></div>
+                </div>
+                <a id="submit-answer">確認</a>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
