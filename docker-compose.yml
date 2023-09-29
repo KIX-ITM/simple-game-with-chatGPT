@@ -63,6 +63,8 @@ services:
       - app_net
     volumes:
       - socket:/tmp
+    environment:
+      APP_CONFIG_FILE_PATH: ${APP_CONFIG_FILE_PATH}
 
   api:
     container_name: api
@@ -74,6 +76,12 @@ services:
         ipv4_address: 172.20.0.9
     ports:
       - "8000:8000"
+    volumes:
+      - socket:/tmp
+      - ${DB_DIR_PATH}:${DB_DIR_PATH}
+    environment:
+      API_CONFIG_FILE_PATH: ${API_CONFIG_FILE_PATH}
+      DB_DIR_PATH: ${DB_DIR_PATH}
 
   certbot:
     image: certbot/certbot:v1.7.0
