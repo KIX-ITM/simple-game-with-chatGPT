@@ -17,11 +17,8 @@
             </div>
         </div>
         <div class="container-message-box">
-            <div id="message-hint-img"></div>
-            <div class="message-text">
-                <h2 id="message-title">AIが出した共通点：</h2>
-                <h2 id="message">決断力と適応力によって、自然な移動の障害を克服する。</h2>
-            </div>
+            <h2 id="message-title">Chat-GPTが出した共通点：</h2>
+            <h2 id="message">決断力と適応力によって、自然な移動の障害を克服する。</h2>
         </div>
         <div class="container-words">
             <div class="select-word">
@@ -34,11 +31,35 @@
             </div>
             <div class="buttons">
                 <div class="hint-and-reload">
-                    <div id="hint"></div>
-                    <div id="reload"></div>
+                    <input type="checkbox" id="hint-checkbox" name="hint-checkbox">
+                    <label for="hint-checkbox" id="hint"></label>
+                    <input type="checkbox" id="reload-checkbox" name="reload-checkbox">
+                    <label for="reload-checkbox" id="reload"></label>
                 </div>
-                <a id="submit-answer">確認</a>
+                <input type="checkbox" id="submit-answer-checkbox" name="submit-answer-checkbox">
+                <label for="submit-answer-checkbox" id="submit-answer">確認</label>
+                <div id="overlay">
+                <label for="submit-answer-checkbox" id="bg_gray"></label> <!-- ウィンドウの外のグレーの領域 -->
+                <!-- ポップアップ部分 -->
+                <div id="popup-window"> <!-- ウィンドウ部分 -->
+                    <div id="popup-msg"> <!-- ウィンドウのコンテンツ -->
+                        <h2>【不正解】</h2>
+                        <p>あなたはロボットです。正解はサーモンと自動車。</p>
+                    </div>
+                    <label for="submit-answer-checkbox" id="popup-close">閉じる</label>
+                </div>
             </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sub">
+        <div class="answer-box">
+            <label class="switch" name="switch">
+              <input type="checkbox" id="switch-checkbox">
+              <span class="slider"></span>
+            </label>
+            <p id="answer">正解を見る（出題者用）</p>
         </div>
     </section>
 
