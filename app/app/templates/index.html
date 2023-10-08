@@ -18,16 +18,24 @@
         </div>
         <div class="container-message-box">
             <h2 id="message-title">Chat-GPTが出した共通点：</h2>
-            <h2 id="message">決断力と適応力によって、自然な移動の障害を克服する。</h2>
+            {% if common_point %}
+            <h2 class="message">{{ common_point }}</h2>
+            {% else %}
+            <h2 class="message">読込み中...</h2>
+            {% endif %}
         </div>
         <div class="container-words">
             <div class="select-word">
-                <input type="checkbox" id="word01" name="word" value="word01" class="words">
-                <label for="word01">滝</label>
-                <input type="checkbox" id="word02" name="word" value="word02" class="words">
-                <label for="word02">サーモン</label>
-                <input type="checkbox" id="word03" name="word" value="word03" class="words">
-                <label for="word03">自動車</label>
+            {% if question_id %}
+                <input type="checkbox" id="word-A" name="word" value="{{ word_A }}" class="words">
+                <label for="word-A">{{ word_A }}</label>
+                <input type="checkbox" id="word-B" name="word" value="{{ word_B }}" class="words">
+                <label for="word-B">{{ word_B }}</label>
+                <input type="checkbox" id="word-C" name="word" value="{{ word_C }}" class="words">
+                <label for="word-C">{{ word_C }}</label>
+            {% else %}
+                <h1 id="loading-error">読み込み中にエラーが発生しました。<br>少し時間を置いてから、ページを更新してください。</h1>
+            {% endif %}
             </div>
             <div class="buttons">
                 <div class="hint-and-reload">
