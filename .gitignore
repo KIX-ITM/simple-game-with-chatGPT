@@ -1,6 +1,9 @@
 /app/.idea/
-/app/venv/
 /app/app/__pycache__/
 /app/__pycache__/
+/app/venv/
+/api/.idea/
+/api/venv/
+/api/app/model/csv/
 .env
 /config/
