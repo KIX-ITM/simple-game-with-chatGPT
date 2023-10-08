@@ -1,8 +1,7 @@
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, Integer, String, ForeignKey
 
-from setting import engine, Base
-from question import Question
+from .settings import engine, Base
 
 
 class Word(Base):
@@ -13,7 +12,6 @@ class Word(Base):
     id = Column('id', Integer, primary_key=True, autoincrement=True)
     japanese = Column('japanese', String(255), nullable=False)
     english = Column('english', String(255), nullable=False)
-    questions = relationship('Question', backref='words')
     genre_id = Column(Integer, ForeignKey('word_genres.id'), nullable=False)
 
 
