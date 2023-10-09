@@ -1,15 +1,33 @@
-from typing import Union
+import logging
 
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
+from sqlalchemy.orm import Session
+
+from model import models
+from model.database import SessionLocal, engine
+from model import crud
+
+models.Base.metadata.create_all(bind=engine)
 
 application = FastAPI()
 
-# テスト用
-@application.get("/")
-def read_root():
-    return {"Hello": "World"}
+logging.basicConfig()
+logging.getLogger('sqlalchemy.engine').setLevel(logging.DEBUG)
 
-# テスト用
-@application.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+@application.get('/test')
+def test(db: Session = Depends(get_db)):
+    result = crud.get_all_genre(db)
+    print(result)
+    return result
+
+
+
