@@ -1,9 +1,14 @@
 /app/.idea/
 /app/app/__pycache__/
+/app/app/views/__pycache__/
 /app/__pycache__/
 /app/venv/
 /api/.idea/
 /api/venv/
+/api/app/__pycache__/
+/api/app/api/__pycache__/
+/api/app/controller/__pycache__/
+/api/app/model/__pycache__/
 /api/app/model/csv/
 .env
 /config/
