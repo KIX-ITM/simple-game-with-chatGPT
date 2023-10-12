@@ -82,6 +82,8 @@ services:
     environment:
       API_CONFIG_FILE_PATH: ${API_CONFIG_FILE_PATH}
       DB_DIR_PATH: ${DB_DIR_PATH}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      DEEPL_API_KEY: ${DEEPL_API_KEY}
 
   certbot:
     image: certbot/certbot:v1.7.0

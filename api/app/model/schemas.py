@@ -4,24 +4,32 @@ from pydantic import BaseModel
 
 
 class QuestionBase(BaseModel):
-    option_a: str
-    option_b: str
-    option_c: str
+    option_a_ja: str
+    option_b_ja: str
+    option_c_ja: str
+    option_a_en: str
+    option_b_en: str
+    option_c_en: str
     option_a_is_common: bool
     option_b_is_common: bool
     option_c_is_common: bool
-    common_point_japanese: str | None = None
-    common_point_english: str | None = None
+    easy_common_point_ja: str | None = None
+    easy_common_point_en: str | None = None
+    normal_common_point_ja: str | None = None
+    normal_common_point_en: str | None = None
+    hard_common_point_ja: str | None = None
+    hard_common_point_en: str | None = None
 
 
 class QuestionCreate(QuestionBase):
-    pass
-
-
-class Question(QuestionBase):
-    id: int
     created_at: datetime = None
     updated_at: datetime = None
 
+
+# レスポンス用のデータモデル（datetime系含まない）
+class Question(QuestionBase):
+    id: int
+
+
     class Config:
-        orm_mode = True
+        from_attributes = True
