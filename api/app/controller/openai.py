@@ -1,6 +1,6 @@
 from api import openai_api
 
-DIFFICULTY_DICT = {'easy':'10 words', 'normal':'5 words', 'hard':'1 word'}
+DIFFICULTY_DICT = {'easy':'sentence of 10 words', 'normal':'sentence of 5 words', 'hard':'1 word'}
 OPTION_NAMES = ['option_a', 'option_b', 'option_c']
 
 

@@ -1,3 +1,4 @@
+import os
 import logging
 
 from fastapi import FastAPI, HTTPException, Depends, Request
@@ -26,6 +27,7 @@ def get_db():
 
 
 def verify_authentication_code(req: Request):
+    # 認証コードの判定
     auth_code = req.headers.get("Authorization-Code")
     if not auth_code or not is_valid_auth_code(auth_code):
         raise HTTPException(
@@ -35,31 +37,40 @@ def verify_authentication_code(req: Request):
     return True
 
 
-# 認証コードの検証を行うダミー関数（実際には適切な検証ロジックを使用してください）
 def is_valid_auth_code(auth_code: str):
-    return auth_code == "my_authentication_code"
+    # 認証コードの検証を行うダミー関数
+    return auth_code == os.getenv("FASTAPI_AUTH_KEY")
 
 
 @application.get("/")
 async def home(authenticated: bool = Depends(verify_authentication_code)):
+    # 認証コードテスト用
     if authenticated:
         return {"detail": "Authenticated successfully"}
 
 
 @application.get('/questions', response_model=schemas.Question)
 def get_options(db: Session = Depends(get_db)):
+    # 選択肢を3つ用意-QuestionDBにレコード作成-レコード返す
     result = question.create_options(db)
     if not result:
+        # 作成失敗した場合はエラー
         raise HTTPException(status_code=404, detail="Failed to create question")
     return result
 
-
-@application.get('/questions/{question_id}', response_model=schemas.Question)
-def get_one_question(question_id: int, difficulty: str, db: Session = Depends(get_db)):
+@application.get('/questions/{question_id}/{difficulty}', response_model=schemas.Question)
+def get_one_question(question_id: int,
+                     difficulty: str,
+                     db: Session = Depends(get_db),
+                     authenticated: bool = Depends(verify_authentication_code)
+                     ):
+    # idからレコード検索-選択肢と難易度から共通点を作成-レコード更新-更新したレコードを返す
     question_data = question.get_one_question(db, question_id)
     if not question_data:
+        # 検索結果がない場合はエラー
         raise HTTPException(status_code=404, detail="Question not found")
-    if question.exists_common_point():
+    if question.exists_common_point(question_data, difficulty):
+        # レコード検索結果に指定難易度の共通点が含まれる場合は、検索結果を返す
         return question_data
     common_point_en = openai.request(question_data, difficulty)
     common_point_ja = deepl.request(common_point_en)
