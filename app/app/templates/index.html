@@ -1,48 +1,79 @@
 {% extends "base.html" %}
 {% block body %}
-
+<body>
     <section class="main">
         <div class="container-top">
             <h1 id="title">共通点に当てはまる言葉</h1>
             <h1 id="subtitle">を二つ選択してください。</h1>
         </div>
-        <div class="container-level">
-            <div class="select-level">
-                <input type="radio" id="easy" name="level" value="easy" class="easy">
+        <div class="container-difficulty">
+            <form class="select-difficulty"
+                  id="post-checked-difficulty"
+                  action="/question/{{ question_id }}"
+                  method="POST">
+                <input type="radio" id="easy" name="difficulty" value="easy" class="easy"
+                        {% if selected_difficulty == 'easy' %} checked {% endif %}>
                 <label for="easy">Easy</label>
-                <input type="radio" id="nomal" name="level" value="nomal" class="nomal" checked>
-                <label for="nomal">Nomal</label>
-                <input type="radio" id="hard" name="level" value="unix" class="hard">
+                <input type="radio" id="normal" name="difficulty" value="normal" class="normal"
+                       {% if selected_difficulty == 'normal' %} checked {% endif %}>
+                <label for="normal">Normal</label>
+                <input type="radio" id="hard" name="difficulty" value="hard" class="hard"
+                       {% if selected_difficulty == 'hard' %}checked{% endif %}>
                 <label for="hard">Hard</label>
-            </div>
+            </form>
+            {% if common_point == 'unacquired' %}
+            <script>
+                // ページ読み込みが完了したらフォームを自動送信
+                window.addEventListener('load', function() {
+                    document.getElementById('post-checked-difficulty').submit();
+                });
+            </script>
+            {% elif common_point %}
+            <script>
+                const difficulties = document.getElementsByName('difficulty');
+                // 難易度を変更したらフォームを送信
+                difficulties.forEach(function(radioButton) {
+                    radioButton.addEventListener('click', function() {
+                        document.getElementById('post-checked-difficulty').submit();
+                    });
+                });
+            </script>
+            {% else %}
+            <script></script>
+            {% endif %}
         </div>
         <div class="container-message-box">
             <h2 id="message-title">Chat-GPTが出した共通点：</h2>
-            {% if common_point %}
+            {% if common_point == 'unacquired' %}
+            <h2 class="message">読込み中...</h2>
+            {% elif common_point %}
             <h2 class="message">{{ common_point }}</h2>
             {% else %}
-            <h2 class="message">読込み中...</h2>
+            <h2 class="message">読込みに失敗しました。<br>ページを更新してください。</h2>
             {% endif %}
         </div>
         <div class="container-words">
             <div class="select-word">
             {% if question_id %}
-                <input type="checkbox" id="word-A" name="word" value="{{ word_A }}" class="words">
-                <label for="word-A">{{ word_A }}</label>
-                <input type="checkbox" id="word-B" name="word" value="{{ word_B }}" class="words">
-                <label for="word-B">{{ word_B }}</label>
-                <input type="checkbox" id="word-C" name="word" value="{{ word_C }}" class="words">
-                <label for="word-C">{{ word_C }}</label>
+                <input type="checkbox" id="word-A" name="word" value="{{ option_a }}" class="words">
+                <label for="word-A">{{ option_a }}</label>
+                <input type="checkbox" id="word-B" name="word" value="{{ option_b }}" class="words">
+                <label for="word-B">{{ option_b }}</label>
+                <input type="checkbox" id="word-C" name="word" value="{{ option_c }}" class="words">
+                <label for="word-C">{{ option_c }}</label>
             {% else %}
-                <h1 id="loading-error">読み込み中にエラーが発生しました。<br>少し時間を置いてから、ページを更新してください。</h1>
+                <h1 id="loading-error">読込みに失敗しました。<br>ページを更新してください。</h1>
             {% endif %}
             </div>
             <div class="buttons">
                 <div class="hint-and-reload">
-                    <input type="checkbox" id="hint-checkbox" name="hint-checkbox">
-                    <label for="hint-checkbox" id="hint"></label>
-                    <input type="checkbox" id="reload-checkbox" name="reload-checkbox">
-                    <label for="reload-checkbox" id="reload"></label>
+                    <input type="submit" id="hint-submit" name="hint-submit">
+                    <label for="hint-submit" id="hint"></label>
+                    <form  action="/" method="POST">
+                        <input id="reload-submit" type="submit" name="reload-submit"
+                               value="{{ selected_difficulty }}">
+                    </form>
+                        <label for="reload-submit" id="reload"></label>
                 </div>
                 <input type="checkbox" id="submit-answer-checkbox" name="submit-answer-checkbox">
                 <label for="submit-answer-checkbox" id="submit-answer">確認</label>
@@ -63,7 +94,7 @@
 
     <section class="sub">
         <div class="answer-box">
-            <label class="switch" name="switch">
+            <label class="switch">
               <input type="checkbox" id="switch-checkbox">
               <span class="slider"></span>
             </label>

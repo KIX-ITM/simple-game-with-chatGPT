@@ -16,8 +16,4 @@ window.addEventListener('DOMContentLoaded', function(){
 		    };
 	    });
 	}
-
-//	submit_answer.addEventListener('change',function(){
-//        if (selected_num != 2) this.checked = false;
-//	});
 });

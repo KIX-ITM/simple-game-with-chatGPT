@@ -96,20 +96,20 @@ h1 {
 
 /* index.html　難易度選択 */
 
-.container-level {
+.container-difficulty {
     margin: 0 0 8px 0;
 }
 
-.select-level input {
+.select-difficulty input {
     display: none;
 }
 
-.select-level input[type="radio"]:checked + label {
+.select-difficulty input[type="radio"]:checked + label {
     color: var(--color-primary-contrast);
     background-color: var(--color-primary);
 }
 
-.select-level label {
+.select-difficulty label {
     color: var(--color-secondary);
     text-align: center;
     display: inline-block;
@@ -215,7 +215,7 @@ h2 {
     cursor : pointer;
 }
 
-#hint-checkbox {
+#hint-submit {
   opacity: 0;
   width: 0;
   height: 0;
@@ -223,7 +223,7 @@ h2 {
 
 #reload {
     margin-top: 20px;
-    margin-left: 20px;
+    margin-left: 16px;
     width: 36px;
     height: 36px;
     background-image:url("images/reload-icon.png");
@@ -232,7 +232,7 @@ h2 {
     cursor : pointer;
 }
 
-#reload-checkbox {
+#reload-submit {
   opacity: 0;
   width: 0;
   height: 0;
