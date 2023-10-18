@@ -4,9 +4,11 @@ from flask import Flask
 
 dictConfig({
     'version': 1,
-    'formatters': {'default': {
-        'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
-    }},
+    'formatters': {
+        'file': {
+            'format': '[%(asctime)s] [%(levelname)s] : %(message)s',
+        }
+    },
     'handlers': {
         'file': {
             'class': 'logging.handlers.TimedRotatingFileHandler',
@@ -15,9 +17,9 @@ dictConfig({
         }
     },
     'root': {
-        'level': 'INFO',
+        'level': 'WARN',
         'handlers': ['file']
-    }
+    },
 })
 
 
