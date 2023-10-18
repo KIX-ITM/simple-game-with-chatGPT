@@ -5,9 +5,9 @@ from fastapi import FastAPI, HTTPException, Depends, Request
 from sqlalchemy.orm import Session
 
 
-from model import models, schemas
-from model.database import SessionLocal, engine
-from controller import question, openai, deepl
+from app.model import models, schemas
+from app.model.database import SessionLocal, engine
+from app.controller import question, openai, deepl
 
 logging.basicConfig()
 logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
