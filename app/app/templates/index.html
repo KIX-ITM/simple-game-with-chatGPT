@@ -18,7 +18,7 @@
                        {% if selected_difficulty == 'normal' %} checked {% endif %}>
                 <label for="normal">Normal</label>
                 <input type="radio" id="hard" name="difficulty" value="hard" class="hard"
-                       {% if selected_difficulty == 'hard' %}checked{% endif %}>
+                       {% if selected_difficulty == 'hard' %} checked {% endif %}>
                 <label for="hard">Hard</label>
             </form>
             {% if common_point == 'unacquired' %}
@@ -67,7 +67,11 @@
             </div>
             <div class="buttons">
                 <div class="hint-and-reload">
-                    <input type="submit" id="hint-submit" name="hint-submit">
+                    <form  action="/info" method="POST">
+                        <input type="hidden" name="selected_difficulty" value="{{ selected_difficulty }}">
+                        <input type="hidden" name="question_id" value="{{ question_id }}">
+                        <input type="submit" id="hint-submit">
+                    </form>
                     <label for="hint-submit" id="hint"></label>
                     <form  action="/" method="POST">
                         <input id="reload-submit" type="submit" name="reload-submit"
@@ -75,17 +79,17 @@
                     </form>
                         <label for="reload-submit" id="reload"></label>
                 </div>
-                <input type="checkbox" id="submit-answer-checkbox" name="submit-answer-checkbox">
-                <label for="submit-answer-checkbox" id="submit-answer">確認</label>
+                <input type="checkbox" id="confirm-answer-checkbox" name="confirm-answer-checkbox" value="{{ incorrect_word }}">
+                <label for="confirm-answer-checkbox" id="submit-answer">確認</label>
                 <div id="overlay">
-                <label for="submit-answer-checkbox" id="bg_gray"></label> <!-- ウィンドウの外のグレーの領域 -->
+                <label for="confirm-answer-checkbox" id="bg_gray"></label> <!-- ウィンドウの外のグレーの領域 -->
                 <!-- ポップアップ部分 -->
                 <div id="popup-window"> <!-- ウィンドウ部分 -->
                     <div id="popup-msg"> <!-- ウィンドウのコンテンツ -->
-                        <h2>【不正解】</h2>
-                        <p>あなたはロボットです。正解はサーモンと自動車。</p>
+                        <h2 id="popup-msg-title"></h2>
+                        <p id="popup-msg-content"></p>
                     </div>
-                    <label for="submit-answer-checkbox" id="popup-close">閉じる</label>
+                    <label for="confirm-answer-checkbox" id="popup-close">閉じる</label>
                 </div>
             </div>
             </div>
@@ -95,10 +99,11 @@
     <section class="sub">
         <div class="answer-box">
             <label class="switch">
-              <input type="checkbox" id="switch-checkbox">
+              <input type="checkbox" id="switch-checkbox" onclick="setAnswerVisibility();">
               <span class="slider"></span>
             </label>
-            <p id="answer">正解を見る（出題者用）</p>
+            <p id="show-answer">正解を見る（出題者用）</p>
+            <p id="hidden-answer">正解は「{{ correct_word_1 }}」と「{{ correct_word_2 }}」</p>
         </div>
     </section>
 

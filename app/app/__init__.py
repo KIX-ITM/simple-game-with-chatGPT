@@ -15,7 +15,8 @@ def create_app(config_mode=None):
         app.config.from_object(config_object)
         logging.basicConfig(level=logging.DEBUG)
 
-    from app.views import index
+    from app.views import index, info
     app.register_blueprint(index.bp)
+    app.register_blueprint(info.bp)
 
     return app
