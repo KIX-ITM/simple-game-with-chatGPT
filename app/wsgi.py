@@ -1,5 +1,5 @@
-from app import create_app
+import app as application
 
 if __name__ == '__main__':
-    application = create_app()
-    application.run()
+    app = application.create_app()
+    app.run()
