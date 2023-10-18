@@ -13,7 +13,7 @@ dictConfig({
         'file': {
             'class': 'logging.handlers.TimedRotatingFileHandler',
             'formatter': 'file',
-            'filename': './logs/application.log'
+            'filename': '/home/app/app.log'
         }
     },
     'root': {
