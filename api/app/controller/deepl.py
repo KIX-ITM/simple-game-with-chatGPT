@@ -1,4 +1,4 @@
-from api import deepl_api
+from app.api import deepl_api
 
 
 def request(text):

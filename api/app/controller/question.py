@@ -1,6 +1,6 @@
 import random
 
-from model import crud
+from app.model import crud
 
 
 def exists_common_point(question_data, difficulty):

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from model import models, schemas
+from app.model import models, schemas
 
 
 def get_all_words(db: Session):
