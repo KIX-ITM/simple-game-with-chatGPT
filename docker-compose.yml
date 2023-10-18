@@ -67,6 +67,7 @@ services:
     environment:
       APP_CONFIG_FILE_PATH: ${APP_CONFIG_FILE_PATH}
       FASTAPI_AUTH_KEY: ${FASTAPI_AUTH_KEY}
+      FASTAPI_IP_ADDRESS: ${FASTAPI_IP_ADDRESS}
 
   api:
     container_name: api

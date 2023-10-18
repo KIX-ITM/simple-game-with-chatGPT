@@ -2,7 +2,7 @@ import os
 import json
 import requests
 
-URL_HEAD = 'http://127.0.0.9:8000/'
+URL_HEAD = os.getenv('FASTAPI_IP_ADDRESS')
 AUTH_CODE = os.getenv('FASTAPI_AUTH_KEY')
 
 
