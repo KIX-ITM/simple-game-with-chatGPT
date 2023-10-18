@@ -23,10 +23,10 @@ dictConfig({
 })
 
 
-def create_app(config_mode=None):
+def create_app(config_mode='production'):
     app = Flask(__name__, instance_relative_config=True)
 
-    if config_mode is 'production':
+    if config_mode == 'production':
         # 本番の設定ファイルは環境変数で指定
         app.config.from_envvar('APP_CONFIG_FILE_PATH')
         logging.basicConfig(level=logging.INFO)
