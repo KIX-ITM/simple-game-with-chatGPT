@@ -1,6 +1,8 @@
 /app/.idea/
 /app/app/__pycache__/
 /app/app/views/__pycache__/
+/app/app/controllers/__pycache__/
+/app/app/api/__pycache__/
 /app/__pycache__/
 /app/venv/
 /api/.idea/
