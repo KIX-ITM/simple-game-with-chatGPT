@@ -23,14 +23,15 @@ dictConfig({
 })
 
 
-def create_app(config_mode='production'):
+def create_app():
+# def create_app(config_mode='production'):
     app = Flask(__name__, instance_relative_config=True)
 
-    if config_mode != 'production':
-        # 本番以外のログ設定はtest_config.pyを指定
-        config_object = 'test_config.' + config_mode
-        app.config.from_object(config_object)
-        logging.basicConfig(level=logging.DEBUG)
+    # if config_mode != 'production':
+    #     # 本番以外のログ設定はtest_config.pyを指定
+    #     config_object = 'test_config.' + config_mode
+    #     app.config.from_object(config_object)
+    #     logging.basicConfig(level=logging.DEBUG)
 
     from app.views import index, info
     app.register_blueprint(index.bp)
