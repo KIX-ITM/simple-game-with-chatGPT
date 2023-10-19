@@ -17,7 +17,7 @@ dictConfig({
         }
     },
     'root': {
-        'level': 'WARN',
+        'level': 'INFO',
         'handlers': ['file']
     },
 })
