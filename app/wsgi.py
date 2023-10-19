@@ -1,4 +1,6 @@
 from app import create_app as application
 
 app = application()
-app.run()
+
+if __name__ == '__main__':
+    app.run()

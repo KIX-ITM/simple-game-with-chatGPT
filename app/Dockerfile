@@ -12,7 +12,7 @@ ENV TZ="Asia/Tokyo" \
 WORKDIR /home/app
 
 # Flask環境変数: Dockerコンテナ内で、Flaskがアプリケーションを正しく検出し、起動できるようになります。
-# ENV FLASK_APP=app
+ENV FLASK_APP=app
 
 # Hostマシンのディレクトリ・ファイル を Container側のPathに COPY(追加)する
 COPY ./ /home/app
