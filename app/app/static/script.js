@@ -4,7 +4,7 @@ window.addEventListener('DOMContentLoaded', function(){
 	const words = document.querySelectorAll("input[name=word]");
 	let selectedNum = 0;
 
-    //選択出来るワードを2つまでに制限する
+    // 選択出来るワードを2つまでに制限する
 	for(let word of words) {
 	    word.addEventListener('change',function(){
 		    let count = document.querySelectorAll('input[name=word]:checked').length;
@@ -15,7 +15,7 @@ window.addEventListener('DOMContentLoaded', function(){
 	    });
 	}
 
-    //確認ボタンをチェック時に正解不正解を判定
+    // 確認ボタンをチェック時に正解不正解を判定
     const answerCheckbox = document.getElementById('confirm-answer-checkbox');
     const popupMsgTitle = document.getElementById('popup-msg-title');
     const popupMsgContent = document.getElementById('popup-msg-content');
@@ -26,8 +26,8 @@ window.addEventListener('DOMContentLoaded', function(){
         let count = checkedWords.length;
         let correct = true;
         if (this.checked && count < 2) {
-            popupMsgTitle.textContent = '【不正解】';
-            popupMsgContent.textContent = '共通点に当てはまる言葉を「2つ」選択してください。';
+            popupMsgTitle.innerText = '【不正解】';
+            popupMsgContent.innerText = '共通点に当てはまる言葉を「2つ」選択してください。';
         };
         if (this.checked && count == 2) {
             let incorrectWord = this.value;
@@ -36,11 +36,11 @@ window.addEventListener('DOMContentLoaded', function(){
                 if (word.value == incorrectWord) correct = false;
             };
             if (correct) {
-                popupMsgTitle.textContent = '【正解】';
-                popupMsgContent.textContent = 'おめでとうございます！！\nあなたはロボットではありません。';
+                popupMsgTitle.innerText = '【正解】';
+                popupMsgContent.innerText = 'おめでとうございます！！\nあなたはロボットではありません。';
             } else {
-                popupMsgTitle.textContent = '【不正解】';
-                popupMsgContent.textContent = '残念…\nあなたはロボットです。';
+                popupMsgTitle.innerText = '【不正解】';
+                popupMsgContent.innerText = '残念…。\nあなたはロボットです。';
             };
         };
     }
