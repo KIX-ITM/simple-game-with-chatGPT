@@ -64,6 +64,7 @@ services:
         ipv4_address: 172.20.0.19
     volumes:
       - socket:/tmp
+      - ${APP_CONFIG_FILE_PATH}:${APP_CONFIG_FILE_PATH}
     environment:
       APP_CONFIG_FILE_PATH: ${APP_CONFIG_FILE_PATH}
       FASTAPI_AUTH_KEY: ${FASTAPI_AUTH_KEY}
