@@ -55,7 +55,7 @@ def get_options(db: Session = Depends(get_db)):
     result = question.create_options(db)
     if not result:
         # 作成失敗した場合はエラー
-        raise HTTPException(status_code=404, detail="Failed to create question")
+        raise HTTPException(status_code=400, detail="Failed to create question")
     return result
 
 @application.get('/questions/{question_id}/{difficulty}', response_model=schemas.Question)
@@ -74,5 +74,9 @@ def get_one_question(question_id: int,
         return question_data
     common_point_en = openai.request(question_data, difficulty)
     common_point_ja = deepl.request(common_point_en)
+    if not common_point_en:
+        raise HTTPException(status_code=400, detail="Failed to execute openai api")
+    if not common_point_ja:
+        raise HTTPException(status_code=400, detail="Failed to execute deepl api")
     return question.update_common_point(db, question_id, difficulty, common_point_en, common_point_ja)
 
