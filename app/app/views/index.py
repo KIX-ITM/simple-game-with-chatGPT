@@ -51,7 +51,7 @@ def get_common_point(id, difficulty):
     #     abort(404)
     obj = question.format_response(response)
     common_point_name = difficulty + '_common_point_ja'
-    common_point = response[common_point_name] if response else None
+    common_point = response[common_point_name] if response and response[common_point_name] == '0' else None
     return render_template('index.html',
                            question_id=obj['question_id'],
                            option_a=obj['option_a'],
