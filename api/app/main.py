@@ -74,9 +74,9 @@ def get_one_question(question_id: int,
         return question_data
     common_point_en = openai.request(question_data, difficulty)
     common_point_ja = deepl.request(common_point_en)
-    if not common_point_en:
-        raise HTTPException(status_code=400, detail="Failed to execute openai api")
-    if not common_point_ja:
-        raise HTTPException(status_code=400, detail="Failed to execute deepl api")
+    # if not common_point_en:
+    #     raise HTTPException(status_code=400, detail="Failed to execute openai api")
+    # if not common_point_ja:
+    #     raise HTTPException(status_code=400, detail="Failed to execute deepl api")
     return question.update_common_point(db, question_id, difficulty, common_point_en, common_point_ja)
 
