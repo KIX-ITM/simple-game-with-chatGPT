@@ -16,9 +16,9 @@ def get_question_by_id(id, difficulty):
 def format_response(response):
     obj = {}
     obj['question_id'] = response['id'] 
-    obj['option_a'] = response['option_a_ja']
-    obj['option_b'] = response['option_b_ja']
-    obj['option_c'] = response['option_c_ja']
+    obj['option_a'] = response['option_a_ja'] if response['option_a_ja'] != '0' else None
+    obj['option_b'] = response['option_b_ja'] if response['option_b_ja'] != '0' else None
+    obj['option_c'] = response['option_c_ja'] if response['option_c_ja'] != '0' else None
     obj['correct_words'] = [None, None]
     obj['incorrect_word'] = None
     count = 0

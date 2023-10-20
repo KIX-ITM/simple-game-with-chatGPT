@@ -54,7 +54,7 @@
         </div>
         <div class="container-words">
             <div class="select-word">
-            {% if question_id %}
+            {% if question_id and option_a %}
                 <input type="checkbox" id="word-A" name="word" value="{{ option_a }}" class="words">
                 <label for="word-A">{{ option_a }}</label>
                 <input type="checkbox" id="word-B" name="word" value="{{ option_b }}" class="words">
