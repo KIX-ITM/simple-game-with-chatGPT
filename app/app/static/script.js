@@ -44,6 +44,12 @@ window.addEventListener('DOMContentLoaded', function(){
             };
         };
     }
+
+    // Lineで贈るURLの設定
+    // 現在のページURLを取得し変数に格納
+    const pageUrl = window.location.href;
+    const element = document.getElementById('line-it-button');
+    element.dataset.url = pageUrl;
 });
 
 function setAnswerVisibility() {
