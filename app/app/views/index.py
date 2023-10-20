@@ -46,13 +46,12 @@ def get_question(id):
 @bp.route('/question/<id>/<difficulty>')
 def get_common_point(id, difficulty):
     response = question.get_question_by_id(id, difficulty)
-    if response:
-        obj = question.format_response(response)
-        common_point_name = difficulty + '_common_point_ja'
-        common_point = response[common_point_name] if response else None
-    # else:
+    # if not response:
     #     # fastapiからエラーが返ってきた場合は404
     #     abort(404)
+    obj = question.format_response(response)
+    common_point_name = difficulty + '_common_point_ja'
+    common_point = response[common_point_name] if response else None
     return render_template('index.html',
                            question_id=obj['question_id'],
                            option_a=obj['option_a'],
