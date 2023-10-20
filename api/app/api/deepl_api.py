@@ -13,4 +13,5 @@ def request(text):
         return False
     except deepl.DeepLException:
         return False
-    
+    except TypeError:
+        return False
