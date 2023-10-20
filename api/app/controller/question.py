@@ -60,13 +60,11 @@ def create_three_options(words, genres):
     bool_list = [True, True, False]
     random_bool_list = select_all_at_random(bool_list)
     three_genres = select_three_at_random(genre_list)
-    # genre = select_one_at_random(genre_list)
     count = 0
 
     result = []
 
     for genre in three_genres:
-    # for i in range(3):
         obj = select_one_word_at_random(word_list, genre, random_bool_list[count])
         result.append(obj)
         count += 1

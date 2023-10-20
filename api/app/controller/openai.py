@@ -8,6 +8,8 @@ def request(optipns, difficulty):
     text = create_prompt(optipns, difficulty)
     if text:
         response = openai_api.request(text)
+        if not response:
+            return False
         common_point = response['choices'][0]['text']
         return common_point.replace('\n', '')
     else:
