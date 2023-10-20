@@ -6,9 +6,9 @@ from app.model import crud
 def exists_common_point(question_data, difficulty):
     if difficulty == 'easy' and question_data.easy_common_point_ja and question_data.easy_common_point_ja != '0':
         return True
-    if difficulty == 'normal'and question_data.normal_common_point_ja and question_data.easy_common_point_ja != '0':
+    if difficulty == 'normal'and question_data.normal_common_point_ja and question_data.normal_common_point_ja != '0':
         return True
-    if difficulty == 'hard' and question_data.hard_common_point_ja and question_data.easy_common_point_ja != '0':
+    if difficulty == 'hard' and question_data.hard_common_point_ja and question_data.hard_common_point_ja != '0':
         return True
     return False
 
