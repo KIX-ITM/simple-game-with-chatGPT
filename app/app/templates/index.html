@@ -67,17 +67,21 @@
             </div>
             <div class="buttons">
                 <div class="hint-and-reload">
-                    <form  action="/info" method="POST">
+                    <form  action="/info" method="POST" style="display: none;">
                         <input type="hidden" name="selected_difficulty" value="{{ selected_difficulty }}">
                         <input type="hidden" name="question_id" value="{{ question_id }}">
                         <input type="submit" id="hint-submit">
                     </form>
                     <label for="hint-submit" id="hint"></label>
-                    <form  action="/" method="POST">
+                    <form  action="/" method="POST" style="display: none;">
                         <input id="reload-submit" type="submit" name="reload-submit"
                                value="{{ selected_difficulty }}">
                     </form>
                         <label for="reload-submit" id="reload"></label>
+                    <div id="line">
+                        <div class="line-it-button" data-lang="ja" data-type="share-b" data-env="REAL" data-url="https://anko1-simple-game.top/" data-color="grey" data-size="small" data-count="false" data-ver="3" style="display: none;"></div>
+                        <script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
+                    </div>
                 </div>
                 <input type="checkbox" id="confirm-answer-checkbox" name="confirm-answer-checkbox" value="{{ incorrect_word }}">
                 <label for="confirm-answer-checkbox" id="submit-answer">確認</label>
