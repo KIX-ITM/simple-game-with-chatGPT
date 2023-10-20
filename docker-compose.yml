@@ -28,7 +28,6 @@ services:
         ipv4_address: 172.16.0.9
     ports:
       - "50000:80"
-      # - "50001:80"
     volumes:
       - ./html:/usr/share/nginx/html
       - socket:/tmp

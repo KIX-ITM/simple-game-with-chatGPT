@@ -8,7 +8,6 @@ ENV TZ="Asia/Tokyo" \
     LC_ALL="C.UTF-8"
 
 # Docker Image内で実行される作業ディレクトリ(Path)を指定する: ない場合は作ってくれます。
-# change dir
 WORKDIR /home/app
 
 # Flask環境変数: Dockerコンテナ内で、Flaskがアプリケーションを正しく検出し、起動できるようになります。
