@@ -13,7 +13,7 @@ def get_index():
     obj = question.format_response(response)
     common_point = 'unacquired'
     if request.method == 'GET':
-        difficulty = 'normal'
+        difficulty = 'easy'
     elif request.method == 'POST':
         difficulty = request.form['reload-submit']
         if not difficulty:

@@ -47,7 +47,8 @@
             {% if common_point == 'unacquired' %}
             <h2 class="message">読込み中...</h2>
             {% elif common_point %}
-            <h2 class="message">{{ common_point }}</h2>
+            <h2 class="message" id="common-point">{{ common_point }}</h2>
+            <h2 class="message" id="loading-common-point" style="display: none;">読込み中...</h2>
             {% else %}
             <h2 class="message">読込みに失敗しました。<br>ページを更新してください。</h2>
             {% endif %}

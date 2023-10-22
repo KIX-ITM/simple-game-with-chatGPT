@@ -1,7 +1,15 @@
 window.addEventListener('DOMContentLoaded', function(){
 
-	// チェックボックスのHTML要素を取得
-	const words = document.querySelectorAll("input[name=word]");
+    const difficulties = document.getElementsByName("difficulty");
+
+    for(let d of difficulties) {
+        d.addEventListener("change", function(){
+            document.getElementById('common-point').style.display = 'none'
+            document.getElementById('loading-common-point').style.display = 'inline'
+        });
+    }
+
+	const words = document.querySelectorAll('input[name=word]');
 	let selectedNum = 0;
 
     // 選択出来るワードを2つまでに制限する
@@ -15,11 +23,11 @@ window.addEventListener('DOMContentLoaded', function(){
 	    });
 	}
 
-    // 確認ボタンをチェック時に正解不正解を判定
     const answerCheckbox = document.getElementById('confirm-answer-checkbox');
     const popupMsgTitle = document.getElementById('popup-msg-title');
     const popupMsgContent = document.getElementById('popup-msg-content');
 
+    // 確認ボタンをチェック時に正解不正解を判定
     answerCheckbox.addEventListener('change',setCorrectOrNot);
     function setCorrectOrNot() {
         let checkedWords = document.querySelectorAll('input[name=word]:checked');
