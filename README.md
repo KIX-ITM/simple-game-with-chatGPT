@@ -65,6 +65,7 @@ ChatGPT側のサーバーの問題により、共通点の読み込みに失敗�
 | JavaScript              | 経験あり |                                                      |
 | DeepL API               | 未経験   |                                                      |
 | OpenAI API              | 未経験   |                                                      |
+| Google Cloud            | 未経験   |                                                      |
 
 
 
