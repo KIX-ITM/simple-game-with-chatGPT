@@ -1,0 +1,105 @@
+version: "3.8"
+networks:
+  nginx_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.0.0/24
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/24
+
+volumes:
+  html:
+  socket:
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: web_server
+    networks:
+      nginx_net:
+        ipv4_address: 172.16.0.9
+    ports:
+      - "50000:80"
+    volumes:
+      - ./html:/usr/share/nginx/html
+      - socket:/tmp
+
+  nginx_proxy:
+    build:
+      context: ./nginx_proxy
+      dockerfile: Dockerfile
+    container_name: reverse_proxy_server
+    networks:
+      - nginx_net
+      - app_net
+    depends_on:
+      - nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # 2つの共有Dockerボリュームが必要。1つは検証チャレンジ用、もう1つは実際の証明書用。
+      - /etc/letsencrypt:/etc/letsencrypt
+      - html:/usr/share/nginx/html
+    # 20日おきにnginxを再読み込みする
+    command: "/bin/sh -c 'while :; do sleep 20d & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    restart: always
+
+  app:
+    container_name: app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.19
+    volumes:
+      - socket:/tmp
+      - ${APP_CONFIG_FILE_PATH}:${APP_CONFIG_FILE_PATH}
+    environment:
+      APP_CONFIG_FILE_PATH: ${APP_CONFIG_FILE_PATH}
+      FASTAPI_AUTH_KEY: ${FASTAPI_AUTH_KEY}
+      FASTAPI_IP_ADDRESS: ${FASTAPI_IP_ADDRESS}
+
+  api:
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.9
+    ports:
+      - "8000:8000"
+    volumes:
+      - socket:/tmp
+      - ${DB_DIR_PATH}:${DB_DIR_PATH}
+    environment:
+      API_CONFIG_FILE_PATH: ${API_CONFIG_FILE_PATH}
+      DB_DIR_PATH: ${DB_DIR_PATH}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      DEEPL_API_KEY: ${DEEPL_API_KEY}
+      FASTAPI_AUTH_KEY: ${FASTAPI_AUTH_KEY}
+
+  certbot:
+    image: certbot/certbot:v1.7.0
+    container_name: certbot
+    volumes:
+      #取得したssl証明書を配置
+      - /etc/letsencrypt:/etc/letsencrypt
+      - html:/usr/share/nginx/html
+    depends_on:
+      - nginx_proxy
+    # 10日おきに証明書を更新する(期限切れまで30日以上あれば更新しない)
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 10d & wait $${!}; done;'"
+    command: ["--version"]
+    restart: always
+
